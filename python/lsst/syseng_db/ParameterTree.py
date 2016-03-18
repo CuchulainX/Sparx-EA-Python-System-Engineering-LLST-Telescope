@@ -8,6 +8,11 @@ id_tag = '%sid' % prefix
 
 
 def format_documentation(doc_string):
+    """
+    Reads in a string and breaks it up into lines of 50 characters
+    preceeded by four blank spaces (for easily-readable printing
+    to the screen).
+    """
     n_char = 50+4
     doc_string = doc_string.replace('\n',' ')
     if len(doc_string)<n_char-4:
@@ -29,6 +34,10 @@ def format_documentation(doc_string):
 
 
 def _should_be_written(parameter, keyword):
+    """
+    Determines whether a parameters name or docstring contains a keyword.
+    Returns True if so.  Returns False otherwise.
+    """
     key = keyword.lower()
     if key in parameter.name.lower():
         return True
@@ -41,6 +50,14 @@ def _should_be_written(parameter, keyword):
 
 
 def write_keyword_params(list_of_params, keyword, handle=sys.stdout):
+    """
+    Accepts a list of Parameters and a keyword (or a list of keywords).
+    Prints each of the Parameters whose name or docstring contains
+    (one of) the keywords.  By default, it prints to stdout, but can
+    be made to print to a file by passing in a file handle with the
+    'handle' kwarg.
+    """
+
 
     for param in list_of_params:
         write_it = False
@@ -59,8 +76,35 @@ def write_keyword_params(list_of_params, keyword, handle=sys.stdout):
 
 
 class Parameter(object):
+    """
+    A class to store a parameter and all the corresponding desirable
+    information and taken from one of Enterprise Architect's .xml files.
+
+    Every Parameter has (as a python property)
+
+    name
+    doc -- text defining what the parameter is
+    units -- text defining the units of any values associated with the Parameter
+    values -- a dict with possible keys 'defaultValue', 'upperValue',
+             'lowerValue'
+    source -- the name of the .xml file from which the Parameter was taken
+
+    Parameters also provide the method write_param(), which writes a nicely
+    formatted representation of the Parameter to a user-specified file handle.
+    """
 
     def __init__(self, name, doc=None, units=None, values=None, source=None):
+        """
+        Input parameters are
+
+        name -- a string naming the Parameter
+        doc -- a string defining the Parameter
+        units -- a string indicating the units of any associated values
+        values -- a dict with possible keys 'defaultValue', 'upperValue',
+                  'lowerValue'
+        source -- a string indicating the name of the .xml file from which
+                  this Parameter came
+        """
         self._name = name
         if doc is not None:
             self._doc = doc
@@ -88,6 +132,10 @@ class Parameter(object):
 
 
     def write_param(self, handle=sys.stdout):
+        """
+        Write out the contents of this Parameter to a file handle specified
+        by the kwarg 'handle' (default is to write to stdout)
+        """
         handle.write("\n%s\n" % self._name)
         if self._doc is not None:
             handle.write("%s\n" % format_documentation(self._doc))
@@ -122,8 +170,18 @@ class Parameter(object):
 
 
 class ParameterTree(object):
+    """
+    The ParameterTree class can read in an .xml file and strip out all of the
+    parameters ('nestedClassifiers' in XMI parlance) contained therein.  The
+    parameters will be stored as a list of Parameter objects, and can be
+    accessed from the parameter_list member variable of the ParameterTree.
+    """
 
     def __init__(self, file_name):
+        """
+        Specify the name of an .xml file.  XMI nestedClassifiers will be
+        stripped from the file and stored as Parameter objects.
+        """
         words = file_name.split('/')
         self.file_name = words[-1]
         tree = etree.parse(file_name)
