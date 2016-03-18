@@ -1,9 +1,9 @@
 import sqlite3
 import os
 
-from ParameterTree import Parameter
+from ParameterTree import ParameterTree
 
-__all__ = ["db_from_param_list", "syseng_db_config"]
+__all__ = ["db_from_param_list", "db_from_xml_file", "syseng_db_config"]
 
 syseng_db_config = {
                     "db_dir":os.path.join(os.getenv("SYSENG_DB_DIR"), "db"),
@@ -74,3 +74,20 @@ def db_from_param_list(param_list, table_name):
 
     conn.commit()
     conn.close()
+
+
+def db_from_xml_file(file_name, table_name):
+    """
+    Read in the file specified by file_name.  Convert it into a ParameterTree,
+    and feed that though db_from_parameter_list to create a SQLite database.
+
+    The name of the database table to be created needs to be specified
+    in the second argument of this function.
+    """
+
+    if not file_name.endswith('xml'):
+        raise RuntimeError("You did not specify a .xml file.\n"
+                           + "If you did, make sure it ends with '.xml'")
+
+    tree = ParameterTree(file_name)
+    db_from_param_list(tree.parameter_list, table_name)
