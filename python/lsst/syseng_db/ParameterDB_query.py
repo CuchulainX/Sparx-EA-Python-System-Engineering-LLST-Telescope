@@ -2,7 +2,6 @@ import sqlite3
 import os
 
 from ParameterTree import Parameter
-from ParameterDB_constructor import parameter_db_name
 
 __all__ = ["get_table_names", "get_column_names", "keyword_query"]
 

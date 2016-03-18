@@ -3,11 +3,17 @@ import os
 
 from ParameterTree import Parameter
 
-__all__ = ["db_from_param_list", "parameter_db_name"]
+__all__ = ["db_from_param_list", "syseng_db_config"]
 
-parameter_db_name = "LSST_parameter_sqlite.db"
+syseng_db_config = {
+                    "db_dir":os.path.join(os.getenv("SYSENG_DB_DIR"), "db"),
+                    "db_name":"LSST_parameter_sqlite.db"
+                    }
 
-def db_from_param_list(param_list, table_name, file_name=parameter_db_name):
+def db_from_param_list(param_list, table_name):
+
+    file_name = os.path.join(syseng_db_config["db_dir"],
+                             syseng_db_config["db_name"])
 
     conn = sqlite3.connect(file_name)
 
