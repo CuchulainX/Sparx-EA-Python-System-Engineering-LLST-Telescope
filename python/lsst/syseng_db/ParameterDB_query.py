@@ -61,29 +61,27 @@ def _convert_row_to_parameter(row):
 
 def get_table_names(db_name):
     """
-    Return the names of the tables on the database specified by db_name.
+    Return as list of the names of the tables on the database specified by
+    db_name.
     """
     cursor = _global_connection_cache.connect(db_name).cursor()
     query = "SELECT name FROM sqlite_master WHERE type='table'"
     cursor.execute(query)
     results = cursor.fetchall()
-    return results
+    return [str(rr[0]) for rr in results]
 
 
 def get_column_names(db_name, table_name):
     """
-    Return the names of the rows in the table specified by table_name in
-    the database specified by db_name.
+    Return a list of the names of the rows in the table specified by
+    table_name in the database specified by db_name.
     """
     if ')' in table_name:
         raise RuntimeError("%s is not a valid table_name" % table_name)
     cursor = _global_connection_cache.connect(db_name).cursor()
     cursor.execute("PRAGMA table_info(%s)" % table_name)
     raw_results = cursor.fetchall()
-    results = []
-    for rr in raw_results:
-        results.append(rr[1])
-    return results
+    return [str(rr[1]) for rr in raw_results]
 
 
 def keyword_query(db_name, table_name, keyword_list):
