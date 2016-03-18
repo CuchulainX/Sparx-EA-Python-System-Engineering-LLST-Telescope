@@ -11,6 +11,16 @@ syseng_db_config = {
                     }
 
 def db_from_param_list(param_list, table_name):
+    """
+    Read in a list of Parameter objects and write them into an SQLite database
+    table.  The database file name will be specified by the global dict
+    syseng_db_config.  Specifically, the file name will be
+
+    os.path.join(syseng_db_config['db_dir'], syseng_db_config['db_name'])
+
+    The name of the table to be constructed is specified by the second
+    argument to this function.
+    """
 
     file_name = os.path.join(syseng_db_config["db_dir"],
                              syseng_db_config["db_name"])
