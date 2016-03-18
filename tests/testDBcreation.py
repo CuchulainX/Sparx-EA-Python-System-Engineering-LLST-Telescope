@@ -22,7 +22,7 @@ class DB_generation_test(unittest.TestCase):
         tree = ParameterTree(data_file)
         syseng_db_config["db_dir"] = out_dir
         syseng_db_config["db_name"] = out_name
-        db_from_param_list(tree.parameter_list, table_name='test_table')
+        db_from_param_list(tree.parameter_list, 'test_table')
 
         self.assertTrue(os.path.exists(full_out_name))
         if os.path.exists(full_out_name):
