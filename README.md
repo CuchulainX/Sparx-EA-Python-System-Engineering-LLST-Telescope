@@ -8,6 +8,11 @@ current official state of the LSST System.
 2) Python scripts (in `python/lsst/syseng_db/` and managed by `EUPS`) to convert
 those .xml files into an sqlite database and then easily query that database.
 
+Note: In order to get the .xml files, you must have Git's LFS system installed
+on your machine.  See instructions here
+
+http://developer.lsst.io/en/latest/tools/git_lfs.html
+
 ##Generating the LSST Parameter Database
 
 This repository is designed so that the .xml files contained in `data/` will be
