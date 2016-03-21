@@ -24,6 +24,29 @@ into the table `v_0_0` in `db/LSST_parameter_sqlite.db`.  If the table `v_0_0`
 already exists, an exception will be raised.  If `db/LSST_parameter_sqlite.db`
 does not exist, it will be created.
 
+##LSST Parameter Database Schema
+
+Each row in `db/LSST_parameter_sqlite.db` corresponds to a parameter taken from
+the .xml files in `data/`.  The information stored for each parameter is defined
+by the `Parameter` class defined in `python/lsst/syseng_db/ParameterTree.py`.
+The columns stored in `db/LSST_parameter_sqlite.db` (which correspond to the
+properties of the `Parameter` class are)
+
+- `name`
+
+- `defaultValue`
+
+- `upperValue`
+
+- `lowerValue`
+
+- `units` (defining the units of `defaultValue`, `upperValue`, and `lowerValue`)
+
+- `docstring` which documents the meaning of the parameter
+
+- `source` which is the name of the .xml file in which this parameter was
+defined
+
 ##Querying the LSST Parameter Database
 
 Once `db/LSST_parameter_sqlite.db` has been created, the code in
@@ -49,3 +72,16 @@ from lsst.syseng_db import syseng_db_config
 db_name = os.path.join(syseng_db_config['db_dir'], syseng_db_config['db_name'])
 ```
 will give you the absolute path to `LSST_parameter_sqlite.db`.
+
+`keyword_query` will return its results as a list of `Parameter` objects
+(`Parameter` being the class defined in `python/lsst/syseng_db/ParameterTree.py`
+which carries around the data of a parameter defined in the .xml files).
+`Parameter` comes with a method `write_param()` which will write the contents of
+the `Parameter` in a human-friendly format, thus
+```
+results = keyword_query(db_name, 'v_0_0', ['velocity'])
+for param in results:
+    param.write_param()
+```
+will print all of the parameters with the word 'velocity' in either their
+name or docstring to the screen.
