@@ -64,6 +64,10 @@ def get_table_names(db_name):
     Return as list of the names of the tables on the database specified by
     db_name.
     """
+
+    if not os.path.exists(db_name):
+        raise RuntimeError("Database %s does not exist" % db_name)
+
     cursor = _global_connection_cache.connect(db_name).cursor()
     query = "SELECT name FROM sqlite_master WHERE type='table'"
     cursor.execute(query)
@@ -76,6 +80,10 @@ def get_column_names(db_name, table_name):
     Return a list of the names of the rows in the table specified by
     table_name in the database specified by db_name.
     """
+
+    if not os.path.exists(db_name):
+        raise RuntimeError("Database %s does not exist" % db_name)
+
     if ')' in table_name:
         raise RuntimeError("%s is not a valid table_name" % table_name)
     cursor = _global_connection_cache.connect(db_name).cursor()
@@ -90,6 +98,10 @@ def keyword_query(db_name, table_name, keyword_list):
     whose names or docstrings contain one of the keywords specified in
     keyword_list.  Returns a list of Parameter objects.
     """
+
+    if not os.path.exists(db_name):
+        raise RuntimeError("Database %s does not exists" % db_name)
+
     cmd = "SELECT * from %s" % table_name
     like_statement = None
     formatted_kw_list = []
