@@ -9,7 +9,7 @@ class TestMetaDataQueries(unittest.TestCase):
 
     def setUp(self):
         self.root_dir = os.getenv("SYSENG_DB_DIR")
-        self.test_db_name = os.path.join(self.root_dir, "tests", "testData")
+        self.test_db_name = os.path.join(self.root_dir, "tests", "testDb")
         self.test_db_name = os.path.join(self.test_db_name, "meta_data_sqlite.db")
 
         if os.path.exists(self.test_db_name):

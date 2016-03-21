@@ -9,7 +9,7 @@ class TestDBqueries(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.root_dir = os.getenv("SYSENG_DB_DIR")
-        cls.data_file = os.path.join(cls.root_dir, "tests", "testData", "Science_Requirements_v1.xml")
+        cls.data_file = os.path.join(cls.root_dir, "data", "v_0_0", "Science_Requirements_v1.xml")
         syseng_db_config["db_dir"] = os.path.join(cls.root_dir, "tests", "testDb")
         syseng_db_config["db_name"] = "query_test_db_sqlite.db"
         cls.full_db_name = os.path.join(syseng_db_config["db_dir"], syseng_db_config["db_name"])

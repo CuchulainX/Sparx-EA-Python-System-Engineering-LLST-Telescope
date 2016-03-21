@@ -20,7 +20,7 @@ class DB_generation_test(unittest.TestCase):
         if os.path.exists(full_out_name):
             os.unlink(full_out_name)
 
-        data_file = os.path.join(root_dir, "tests", "testData")
+        data_file = os.path.join(root_dir, "data", "v_0_0")
         data_file = os.path.join(data_file, "Science_Requirements_v1.xml")
         tree = ParameterTree(data_file)
         syseng_db_config["db_dir"] = out_dir
@@ -41,7 +41,7 @@ class DB_generation_test(unittest.TestCase):
         if os.path.exists(full_out_name):
             os.unlink(full_out_name)
 
-        data_file = os.path.join(root_dir, "tests", "testData")
+        data_file = os.path.join(root_dir, "data", "v_0_0")
         data_file = os.path.join(data_file, "Science_Requirements_v1.xml")
         syseng_db_config["db_dir"] = out_dir
         syseng_db_config["db_name"] = out_name
