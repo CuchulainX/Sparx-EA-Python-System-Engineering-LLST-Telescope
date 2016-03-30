@@ -22,7 +22,7 @@ def search_params():
         vv = request.form['version']
         result_param_list = keyword_query(db_name, vv, kwrd)
 
-    return render_template("search_form.html",
+    return render_template("keyword_search_form.html",
                            input_list=result_param_list)
 
 
