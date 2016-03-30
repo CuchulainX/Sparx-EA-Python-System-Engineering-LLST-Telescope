@@ -1,0 +1,22 @@
+{% if input_list %}
+    <h1>Available parameters in model version {{ model_version }}</h1>
+{% endif %}
+
+<ul>
+    {% for item in input_list %}
+        <li> {{ item }} </li>
+    {% endfor %}
+</ul>
+
+<p></p>
+<h2>List all of the parameters in a specified model version</h2>
+
+<form action="/list-names" method="POST">
+    <div>
+        <label for="version">Version:</label>
+        <input type="test" id="version" name="version" />
+    </div>
+    <div class="button">
+        <button type="submit">List parameter names</button>
+    <div>
+</form>
