@@ -14,6 +14,9 @@
         <li>lowerValue: {{ item.values['lowerValue'] }} {{item.units}}</li>
     {% endif %}
     </ul>
+    {% if item.source %}
+        <p>Source: {{ item.source}}
+    {% endif %}
 {% endfor%}
 
 {% if input_list %}
