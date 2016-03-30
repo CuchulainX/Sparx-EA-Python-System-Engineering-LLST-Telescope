@@ -5,13 +5,13 @@
     {% endif %}
     <ul>
     {% if item.values['defaultValue'] %}
-        <li>defaultValue: {{ item.values['defaultValue'] }} {{item.units}}</li>
+        <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
     {% endif %}
     {% if item.values['upperValue'] %}
-        <li>upperValue: {{ item.values['upperValue'] }} {{item.units}}</li>
+        <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
     {% endif %}
     {% if item.values['lowerValue'] %}
-        <li>lowerValue: {{ item.values['lowerValue'] }} {{item.units}}</li>
+        <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
     {% endif %}
     </ul>
     {% if item.source %}
