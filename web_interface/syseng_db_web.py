@@ -1,7 +1,8 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
-from lsst.syseng_db import syseng_db_config, get_column_names, get_table_names
+from lsst.syseng_db import syseng_db_config, get_table_names
+from lsst.syseng_db import keyword_query
 
 app = Flask(__name__)
 
@@ -13,6 +14,17 @@ def display_versions():
     return render_template("list_template.html", name="Model Versions",
                            input_list=list_of_tables)
 
+@app.route("/search", methods=['POST', 'GET'])
+def search_params():
+    results = []
+    if request.method == 'POST':
+        kwrd = request.form['keyword']
+        vv = request.form['version']
+        result_param_list = keyword_query(db_name, vv, [kwrd])
+        for rr in result_param_list:
+            results.append(rr.name)
+
+    return render_template("search_form.html", input_list=results)
 
 
 if __name__ == "__main__":

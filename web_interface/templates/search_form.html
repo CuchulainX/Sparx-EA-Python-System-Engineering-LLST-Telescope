@@ -1,0 +1,19 @@
+<ul>
+    {% for item in input_list %}
+        <li> {{ item }} </li>
+    {% endfor%}
+</ul>
+
+<form action="/search" method="POST">
+    <div>
+        <label for="keyword">Keyword:</label>
+        <input type="text" id="keyword" name="keyword" />
+    </div>
+    <div>
+        <label for="version">Version:</label>
+        <input type="test" id="version" name="version" />
+    </div>
+    <div class="button">
+        <button type="submit">Search</button>
+    <div>
+</form>
