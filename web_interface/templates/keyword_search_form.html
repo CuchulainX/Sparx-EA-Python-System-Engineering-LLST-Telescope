@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block body %}
 {% for item in input_list %}
     <h2> {{ item.name }} </h2>
     {% if item.doc %}
@@ -36,3 +39,4 @@
         <button type="submit">Search</button>
     <div>
 </form>
+{% endblock %}

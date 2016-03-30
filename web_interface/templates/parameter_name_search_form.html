@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+
+{% block body %}
 {% if input_list %}
     <h1>Available parameters in model version {{ model_version }}</h1>
 {% endif %}
@@ -20,3 +23,4 @@
         <button type="submit">List parameter names</button>
     <div>
 </form>
+{% endblock %}
