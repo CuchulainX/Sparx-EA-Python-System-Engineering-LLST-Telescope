@@ -113,7 +113,8 @@ def keyword_query(db_name, table_name, keyword_list):
     """
     Query the database db_name and table table_name for all Parameters
     whose names or docstrings contain one of the keywords specified in
-    keyword_list.  Returns a list of Parameter objects.
+    keyword_list.  Returns a list of Parameter objects.  Parameters are
+    alphabetized by name (case-insensitive).
     """
 
     if not os.path.exists(db_name):
@@ -137,7 +138,5 @@ def keyword_query(db_name, table_name, keyword_list):
 
     cursor.execute(cmd, tuple(list_of_chars))
     results = cursor.fetchall()
-    output = []
-    for rr in results:
-        output.append(_convert_row_to_parameter(rr))
-    return output
+    return [_convert_row_to_parameter(rr)
+            for rr in sorted(results, key=lambda rr: rr[0].lower())]
