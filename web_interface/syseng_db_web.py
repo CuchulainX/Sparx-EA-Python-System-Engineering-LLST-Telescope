@@ -16,15 +16,14 @@ def display_versions():
 
 @app.route("/search", methods=['POST', 'GET'])
 def search_params():
-    results = []
+    result_param_list = []
     if request.method == 'POST':
         kwrd = request.form['keyword']
         vv = request.form['version']
         result_param_list = keyword_query(db_name, vv, [kwrd])
-        for rr in result_param_list:
-            results.append(rr.name)
 
-    return render_template("search_form.html", input_list=results)
+    return render_template("search_form.html",
+                           input_list=result_param_list)
 
 
 if __name__ == "__main__":

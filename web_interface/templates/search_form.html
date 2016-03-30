@@ -1,8 +1,13 @@
-<ul>
-    {% for item in input_list %}
-        <li> {{ item }} </li>
-    {% endfor%}
-</ul>
+{% for item in input_list %}
+    <h2> {{ item.name }} </h2>
+    {% if item.doc %}
+        {{ item.doc }}
+    {% endif %}
+{% endfor%}
+
+{% if input_list %}
+    <p></p>
+{% endif %}
 
 <form action="/search" method="POST">
     <div>
