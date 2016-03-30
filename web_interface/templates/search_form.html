@@ -3,6 +3,17 @@
     {% if item.doc %}
         {{ item.doc }}
     {% endif %}
+    <ul>
+    {% if item.values['defaultValue'] %}
+        <li>defaultValue: {{ item.values['defaultValue'] }} {{item.units}}</li>
+    {% endif %}
+    {% if item.values['upperValue'] %}
+        <li>upperValue: {{ item.values['upperValue'] }} {{item.units}}</li>
+    {% endif %}
+    {% if item.values['lowerValue'] %}
+        <li>lowerValue: {{ item.values['lowerValue'] }} {{item.units}}</li>
+    {% endif %}
+    </ul>
 {% endfor%}
 
 {% if input_list %}
