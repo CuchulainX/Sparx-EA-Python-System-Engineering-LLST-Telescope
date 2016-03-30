@@ -106,7 +106,8 @@ def get_parameter_names(db_name, table_name):
     cursor = _global_connection_cache.connect(db_name).cursor()
     cursor.execute("SELECT DISTINCT name FROM %s" % table_name)
     raw_results = cursor.fetchall()
-    return [str(rr[0]) for rr in raw_results]
+    return sorted([str(rr[0]) for rr in raw_results], key=lambda s: s.lower())
+
 
 def keyword_query(db_name, table_name, keyword_list):
     """

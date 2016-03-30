@@ -167,6 +167,10 @@ class TestDBqueries(unittest.TestCase):
             self.assertIn(pp.name, names_test)
         self.assertEqual(len(self.reference_tree.parameter_list), len(names_test))
 
+        # make sure the parameter names are alphabetized (case-insensitive)
+        for ii in range(len(names_test)-1):
+            self.assertLess(names_test[ii].lower(), names_test[ii+1].lower())
+
 
 if __name__ == "__main__":
     unittest.main()
