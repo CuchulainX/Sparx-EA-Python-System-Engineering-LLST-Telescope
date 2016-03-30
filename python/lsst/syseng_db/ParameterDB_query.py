@@ -73,7 +73,7 @@ def get_table_names(db_name):
     query = "SELECT name FROM sqlite_master WHERE type='table'"
     cursor.execute(query)
     results = cursor.fetchall()
-    return [str(rr[0]) for rr in results]
+    return sorted([str(rr[0]) for rr in results], key=lambda s: s.lower())
 
 
 def get_column_names(db_name, table_name):
