@@ -18,9 +18,9 @@ def display_versions():
 def search_params():
     result_param_list = []
     if request.method == 'POST':
-        kwrd = request.form['keyword']
+        kwrd = request.form['keyword'].replace(' ','').split(',')
         vv = request.form['version']
-        result_param_list = keyword_query(db_name, vv, [kwrd])
+        result_param_list = keyword_query(db_name, vv, kwrd)
 
     return render_template("search_form.html",
                            input_list=result_param_list)
