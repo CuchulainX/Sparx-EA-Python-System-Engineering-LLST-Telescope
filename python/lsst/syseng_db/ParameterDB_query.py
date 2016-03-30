@@ -3,7 +3,8 @@ import os
 
 from ParameterTree import Parameter
 
-__all__ = ["get_table_names", "get_column_names", "keyword_query"]
+__all__ = ["get_table_names", "get_column_names",
+           "get_parameter_names", "keyword_query"]
 
 class connection_cache(object):
     """
@@ -91,6 +92,21 @@ def get_column_names(db_name, table_name):
     raw_results = cursor.fetchall()
     return [str(rr[1]) for rr in raw_results]
 
+
+def get_parameter_names(db_name, table_name):
+    """
+    Return a list of all of the parameters contained in the table specified
+    by table_name in the database specified by db_name.
+    """
+    if not os.path.exists(db_name):
+        raise RuntimeError("Database %s does not exist" % db_name)
+    if ')' in table_name:
+        raise RuntimeError("%S is not a valid table_name" % table_name)
+
+    cursor = _global_connection_cache.connect(db_name).cursor()
+    cursor.execute("SELECT DISTINCT name FROM %s" % table_name)
+    raw_results = cursor.fetchall()
+    return [str(rr[0]) for rr in raw_results]
 
 def keyword_query(db_name, table_name, keyword_list):
     """

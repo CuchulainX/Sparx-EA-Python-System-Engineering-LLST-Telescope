@@ -2,6 +2,7 @@ import unittest
 import os
 
 from lsst.syseng_db import db_from_xml_file, keyword_query, ParameterTree
+from lsst.syseng_db import get_parameter_names
 from lsst.syseng_db import syseng_db_config
 
 class TestDBqueries(unittest.TestCase):
@@ -155,6 +156,16 @@ class TestDBqueries(unittest.TestCase):
         self.assertGreater(ct2_in, 0)
         self.assertEqual(ct_in, len(kw_params))
 
+
+    def test_param_names(self):
+        """
+        Test that get_parameter names returns the complete list of names of the parameters
+        stored in the database.
+        """
+        names_test = get_parameter_names(self.full_db_name, self.test_table)
+        for pp in self.reference_tree.parameter_list:
+            self.assertIn(pp.name, names_test)
+        self.assertEqual(len(self.reference_tree.parameter_list), len(names_test))
 
 
 if __name__ == "__main__":
