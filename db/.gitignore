@@ -1,0 +1,3 @@
+# This directory is where the package will build sqlite databases.
+# None of them should be tracked by git
+*.db
