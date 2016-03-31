@@ -44,7 +44,7 @@ sub-directory and run
 python syseng_db.py
 ```
 This will initialize a local server.  Open a web-browser and go to
-`127.0.0.1:5000/`.  You will now have access to a local copy of the web-site.
+`127.0.0.1:5000/`.  You will now have access to a local copy of the website.
 
 ##LSST Parameter Database Schema
 
