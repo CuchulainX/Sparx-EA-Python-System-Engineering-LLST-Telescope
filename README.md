@@ -29,6 +29,23 @@ into the table `v_0_0` in `db/LSST_parameter_sqlite.db`.  If the table `v_0_0`
 already exists, an exception will be raised.  If `db/LSST_parameter_sqlite.db`
 does not exist, it will be created.
 
+##Testing the web interface
+
+In order to run the web interface locally, you must have Flask installed
+somewhere python knows about it.  If you are running anaconda (or miniconda)
+```
+conda install flask
+```
+should set you up.
+
+To test the web interface to this system, navigate into the `web_interface/`
+sub-directory and run
+```
+python syseng_db.py
+```
+This will initialize a local server.  Open a web-browser and go to
+`127.0.0.1:5000/`.  You will now have access to a local copy of the web-site.
+
 ##LSST Parameter Database Schema
 
 Each row in `db/LSST_parameter_sqlite.db` corresponds to a parameter taken from
