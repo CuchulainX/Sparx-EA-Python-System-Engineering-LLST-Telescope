@@ -26,6 +26,15 @@
     <p></p>
 {% endif %}
 
+<p>Note: the way that this search is performed, searching for the keyword 'red'
+will return all parameters with the sequence 'red' anywhere in their names or
+docstrings (i.e. 'desired' will also be returned)</p>
+
+<p>'Version' effectively refers to a table in the SQLite database of parameters
+underlying this page.  Each table corresponds to a change-controlled version of
+the LSST model.  To see a list of available versions, click on the 'List
+available model versions' button on the main page.</p>
+
 <form action="/search" method="POST">
     <div>
         <label for="keyword">Keyword (comma-separated list):</label>
