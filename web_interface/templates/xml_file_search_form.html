@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if input_list %}
+    <h1>.xml files underlying model version {{ model_version }}</h1>
+{% endif %}
+
+<ul>
+    {% for item in input_list %}
+        <li> {{ item }} </li>
+    {% endfor %}
+</ul>
+
+<p></p>
+<h2>List all of the .xml files on which a specified model version is based</h2>
+
+<p>To see a list of available model versions, clikc the 'List available model
+versions' button on the main page.</p>
+
+<form action="/list-xml-files" method="POST">
+    <div>
+        <label for="version">Version:</label>
+        <input type="test" id="version" name="version" />
+    </div>
+    <div class="button">
+        <button type="submit">List .xml files</button>
+    <div>
+</form>
+{% endblock %}

@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 
 from lsst.syseng_db import syseng_db_config, get_table_names
 from lsst.syseng_db import keyword_query, get_parameter_names
+from lsst.syseng_db import get_xml_files
 
 app = Flask(__name__)
 
@@ -39,6 +40,32 @@ def list_param_names():
     return render_template("parameter_name_search_form.html",
                            model_version=model_version,
                            input_list=name_list)
+
+
+@app.route("/list-xml-files", methods=['POST', 'GET'])
+def list_xml_files():
+    name_list = []
+    model_version = None
+    if request.method == 'POST':
+        model_version = request.form['version']
+
+        if model_version == '':
+            message = "You must specify a model version to query." \
+                      +" Try clicking the 'List all available model verisons'" \
+                      +" button on the main page."
+            return render_template("error_template.html",
+                                   message=message)
+
+        try:
+            name_list = get_xml_files(db_name, model_version)
+        except sqlite3.OperationalError, w:
+            return render_template("error_template.html",
+                                   message=w.message)
+
+    return render_template("xml_file_search_form.html",
+                           model_version=model_version,
+                           input_list=name_list)
+
 
 
 @app.route("/search", methods=['POST', 'GET'])
