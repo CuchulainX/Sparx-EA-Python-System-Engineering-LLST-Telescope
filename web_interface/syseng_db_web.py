@@ -74,6 +74,10 @@ def search_params():
     if request.method == 'POST':
         kwrd = request.form['keyword'].replace(' ','').split(',')
         vv = request.form['version']
+        xml_list = [str(ww) for ww in request.form['xml_list'].split(',')]
+
+        if len(xml_list)==1 and xml_list[0]=='':
+            xml_list = None
 
         if vv == '':
             message = "You must specify a model version to query." \
@@ -83,7 +87,8 @@ def search_params():
                                    message=message)
 
         try:
-            result_param_list = keyword_query(db_name, vv, kwrd)
+            result_param_list = keyword_query(db_name, vv, kwrd,
+                                              xml_list=xml_list)
         except sqlite3.OperationalError, w:
             return render_template("error_template.html",
                                    message=w.message)

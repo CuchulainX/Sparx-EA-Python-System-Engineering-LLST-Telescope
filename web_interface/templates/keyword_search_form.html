@@ -35,6 +35,11 @@ underlying this page.  Each table corresponds to a change-controlled version of
 the LSST model.  To see a list of available versions, click on the 'List
 available model versions' button on the main page.</p>
 
+<p>'.xml files' refers to the .xml source files from which the parameters are
+drawn.  You can specify a comma-separated list of these files, or leave it blank
+and search all of the .xml input files.  To see a list of available .xml file,
+click on the 'List all .xml files for a model version' button on the main page.</p>
+
 <form action="/search" method="POST">
     <div>
         <label for="keyword">Keyword (comma-separated list):</label>
@@ -42,7 +47,11 @@ available model versions' button on the main page.</p>
     </div>
     <div>
         <label for="version">Version:</label>
-        <input type="test" id="version" name="version" />
+        <input type="text" id="version" name="version" />
+    </div>
+    <div>
+        <label for="xml_list">.xml files (optional):</label>
+        <input type="text" id="xml_list" name="xml_list" />
     </div>
     <div class="button">
         <button type="submit">Search</button>
