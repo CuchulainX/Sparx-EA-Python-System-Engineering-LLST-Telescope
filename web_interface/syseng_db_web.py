@@ -101,13 +101,15 @@ def search_params():
 def get_optical_system():
 
     result_param_list = []
+    title = None
     xml_list = ['OSS_Detail_OpticalSystem_v1.xml', 'Telescope Requirements_v1.xml',
                  'Camera Requirements_v1.xml']
     if request.method == 'POST':
         kwrd = [str(request.form['element'])]
+        title = kwrd[0]
         result_param_list = keyword_query(db_name, 'v_0_0', kwrd, xml_list=xml_list)
 
-    return render_template("optical_system.html", input_list=result_param_list)
+    return render_template("optical_system.html", input_list=result_param_list, title=title)
 
 
 @app.route("/")
