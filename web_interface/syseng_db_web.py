@@ -26,7 +26,7 @@ def list_param_names():
 
         if model_version == '':
             message = "You must specify a model version to query." \
-                      +" Try clicking the 'List all available model verisons'" \
+                      +" Try clicking the 'List all available model versions'" \
                       +" button on the main page."
             return render_template("error_template.html",
                                    message=message)
@@ -51,7 +51,7 @@ def list_xml_files():
 
         if model_version == '':
             message = "You must specify a model version to query." \
-                      +" Try clicking the 'List all available model verisons'" \
+                      +" Try clicking the 'List all available model versions'" \
                       +" button on the main page."
             return render_template("error_template.html",
                                    message=message)
@@ -81,7 +81,7 @@ def search_params():
 
         if vv == '':
             message = "You must specify a model version to query." \
-                      +" Try clicking the 'List all available model verisons'" \
+                      +" Try clicking the 'List all available model versions'" \
                       +" button on the main page."
             return render_template("error_template.html",
                                    message=message)
