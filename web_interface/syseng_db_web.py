@@ -101,7 +101,8 @@ def search_params():
 def get_optical_system():
 
     result_param_list = []
-    xml_list = ['OSS_Detail_OpticalSystem_v1.xml', 'Telescope Requirements_v1.xml']
+    xml_list = ['OSS_Detail_OpticalSystem_v1.xml', 'Telescope Requirements_v1.xml',
+                 'Camera Requirements_v1.xml']
     if request.method == 'POST':
         kwrd = [str(request.form['element'])]
         result_param_list = keyword_query(db_name, 'v_0_0', kwrd, xml_list=xml_list)
