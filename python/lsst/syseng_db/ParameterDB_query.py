@@ -154,7 +154,7 @@ def keyword_query(db_name, table_name, keyword_list, xml_list=None):
             like_statement += " OR name LIKE ? OR docstring like ?"
     like_statement += " )"
 
-    if xml_list is not None:
+    if xml_list is not None and len(xml_list)>0:
         if len(xml_list)==1:
             like_statement += " AND source = ?"
             list_of_chars.append("%{}%".format(xml_list[0]))
