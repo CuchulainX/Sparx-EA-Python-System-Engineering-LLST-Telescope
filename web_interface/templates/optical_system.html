@@ -27,9 +27,12 @@
     <p></p>
 {% endif %}
 
-<p>This page will print out all of the parameter associated with the lenses
-and mirrors which are stored in the .xml files 'Telescope Requirements_v1.xml',
-'OSS_Detail_OpticalSystem_v1.xml', and 'Camera Requirements_v1.xml'</p>
+<h2> Browse optical system</h2>
+
+<p>This page will print out all of the parameter associated with the lenses,
+ mirrors, and filters which are stored in the .xml files
+ 'Telescope Requirements_v1.xml', 'OSS_Detail_OpticalSystem_v1.xml', and
+ 'Camera Requirements_v1.xml'</p>
 
 <form action="/optical_system" method="POST">
     <div class="button">
@@ -55,6 +58,31 @@ and mirrors which are stored in the .xml files 'Telescope Requirements_v1.xml',
     <div class="button">
         <button type="submit" name="element" value="l3">L3</button>
     </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="u-band">u filter</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="g-band">g filter</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="r-band">r filter</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="i-band">i filter</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="z-band">z filter</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="y-band">y filter</button>
+    </div>
+
 </form>
 
 
