@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+{% for item in input_list %}
+    <h2> {{ item.name }} </h2>
+    {% if item.doc %}
+        {{ item.doc }}
+    {% endif %}
+    <ul>
+    {% if item.values['defaultValue'] %}
+        <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    {% if item.values['upperValue'] %}
+        <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    {% if item.values['lowerValue'] %}
+        <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    </ul>
+    {% if item.source %}
+        <p>Source: {{ item.source}}
+    {% endif %}
+{% endfor%}
+
+{% if input_list %}
+    <p></p>
+{% endif %}
+
+<p>This page will print out all of the parameter associated with the lenses
+and mirrors which are stored in the .xml files 'Telescope Requirements_v1.xml'
+and 'OSS_Detail_OpticalSystem_v1.xml'</p>
+
+<form action="/optical_system" method="POST">
+    <div class="button">
+        <button type="submit" name="element" value="m1">M1</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="m2">M2</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="m3">M3</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="l1">L1</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="l2">L2</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="l3">L3</button>
+    </div>
+</form>
+
+
+{% endblock %}
