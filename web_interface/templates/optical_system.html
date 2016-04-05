@@ -1,95 +1,89 @@
-{% extends "base.html" %}
+{% extends "search_template.html" %}
 
-{% block body %}
+{% block control %}
 
+<h2> Browse optical system</h2>
 
-<div style="width: 100%">
-    <div style="float:left; width: 45%">
-        <h2> Browse optical system</h2>
+<p>This page will print out all of the parameter associated with the lenses,
+mirrors, and filters which are stored in the .xml files
+'Telescope Requirements_v1.xml', 'OSS_Detail_OpticalSystem_v1.xml', and
+'Camera Requirements_v1.xml'</p>
 
-        <p>This page will print out all of the parameter associated with the lenses,
-         mirrors, and filters which are stored in the .xml files
-         'Telescope Requirements_v1.xml', 'OSS_Detail_OpticalSystem_v1.xml', and
-         'Camera Requirements_v1.xml'</p>
-
-        <form action="/optical_system" method="POST">
-            <div class="button">
-                <button type="submit" name="element" value="m1">M1</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="m2">M2</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="m3">M3</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="l1">L1</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="l2">L2</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="l3">L3</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="u-band">u-band</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="g-band">g-band</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="r-band">r-band</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="i-band">i-band</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="z-band">z-band</button>
-            </div>
-
-            <div class="button">
-                <button type="submit" name="element" value="y-band">y-band</button>
-            </div>
-
+<form action="/optical_system" method="POST">
+    <div class="button">
+        <button type="submit" name="element" value="m1">M1</button>
     </div>
 
-    <div style="float:right; width: 45%">
-        <h2>Parameters characterizing {{ title }} </h2>
-        {% for item in input_list %}
-            <h2> {{ item.name }} </h2>
-            {% if item.doc %}
-                {{ item.doc }}
-            {% endif %}
-            <ul>
-            {% if item.values['defaultValue'] %}
-                <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-            {% endif %}
-            {% if item.values['upperValue'] %}
-                <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-            {% endif %}
-            {% if item.values['lowerValue'] %}
-                <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-            {% endif %}
-            </ul>
-            {% if item.source %}
-                <p>Source: {{ item.source}}
-             {% endif %}
-        {% endfor%}
+    <div class="button">
+        <button type="submit" name="element" value="m2">M2</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="m3">M3</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="l1">L1</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="l2">L2</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="l3">L3</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="u-band">u-band</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="g-band">g-band</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="r-band">r-band</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="i-band">i-band</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="z-band">z-band</button>
+    </div>
+
+    <div class="button">
+        <button type="submit" name="element" value="y-band">y-band</button>
     </div>
 
 </form>
 
-</div>
-<div style="clear:both"></div>
+{% endblock %}
+
+{% block results %}
+
+<h2>Parameters characterizing {{ title }} </h2>
+{% for item in input_list %}
+    <h2> {{ item.name }} </h2>
+    {% if item.doc %}
+        {{ item.doc }}
+    {% endif %}
+    <ul>
+    {% if item.values['defaultValue'] %}
+        <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    {% if item.values['upperValue'] %}
+        <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    {% if item.values['lowerValue'] %}
+        <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    </ul>
+    {% if item.source %}
+        <p>Source: {{ item.source}}
+    {% endif %}
+{% endfor%}
 
 {% endblock %}
