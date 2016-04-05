@@ -71,15 +71,18 @@ def list_xml_files():
 @app.route("/search", methods=['POST', 'GET'])
 def search_params():
     result_param_list = []
+    kwrd = None
+    version = None
+    xml_list = None
     if request.method == 'POST':
-        kwrd = request.form['keyword'].replace(' ','').split(',')
-        vv = request.form['version']
+        kwrd = [str(ww) for ww in request.form['keyword'].replace(' ','').split(',')]
+        version = request.form['version']
         xml_list = [str(ww) for ww in request.form['xml_list'].split(',')]
 
         if len(xml_list)==1 and xml_list[0]=='':
             xml_list = None
 
-        if vv == '':
+        if version == '':
             message = "You must specify a model version to query." \
                       +" Try clicking the 'List all available model versions'" \
                       +" button on the main page."
@@ -87,14 +90,17 @@ def search_params():
                                    message=message)
 
         try:
-            result_param_list = keyword_query(db_name, vv, kwrd,
+            result_param_list = keyword_query(db_name, version, kwrd,
                                               xml_list=xml_list)
         except sqlite3.OperationalError, w:
             return render_template("error_template.html",
                                    message=w.message)
 
     return render_template("keyword_search_form.html",
-                           input_list=result_param_list)
+                           input_list=result_param_list,
+                           keyword_list=kwrd,
+                           version=version,
+                           xml_list=xml_list)
 
 
 @app.route("/optical_system", methods=['POST', 'GET'])
