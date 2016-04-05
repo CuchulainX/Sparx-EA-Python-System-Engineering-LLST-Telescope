@@ -4,7 +4,8 @@ import os
 from ParameterTree import Parameter
 
 __all__ = ["get_table_names", "get_column_names",
-           "get_parameter_names", "keyword_query"]
+           "get_parameter_names", "get_xml_files",
+           "keyword_query"]
 
 class connection_cache(object):
     """
@@ -109,12 +110,32 @@ def get_parameter_names(db_name, table_name):
     return sorted([str(rr[0]) for rr in raw_results], key=lambda s: s.lower())
 
 
-def keyword_query(db_name, table_name, keyword_list):
+def get_xml_files(db_name, table_name):
+    """
+    Return a list of all of the xml files from which came the data
+    in the table specified by table_name in the database specified
+    by db_name.
+    """
+    if not os.path.exists(db_name):
+        raise RuntimeError("Database %s does not exist" % db_name)
+    if ')' in table_name:
+        raise RuntimeError("%S is not a valid table_name" % table_name)
+
+    cursor = _global_connection_cache.connect(db_name).cursor()
+    cursor.execute("SELECT DISTINCT source FROM %s" % table_name)
+    raw_results = cursor.fetchall()
+    return sorted([str(rr[0]) for rr in raw_results], key=lambda s: s.lower())
+
+
+def keyword_query(db_name, table_name, keyword_list, xml_list=None):
     """
     Query the database db_name and table table_name for all Parameters
     whose names or docstrings contain one of the keywords specified in
     keyword_list.  Returns a list of Parameter objects.  Parameters are
     alphabetized by name (case-insensitive).
+
+    Option to limit search to data from .xml files specified in
+    xml_list.
     """
 
     if not os.path.exists(db_name):
@@ -128,9 +149,23 @@ def keyword_query(db_name, table_name, keyword_list):
         list_of_chars.append("%{}%".format(kw))
         list_of_chars.append("%{}%".format(kw))
         if like_statement is None:
-            like_statement = " WHERE name LIKE ? OR docstring like ?"
+            like_statement = " WHERE ( name LIKE ? OR docstring like ?"
         else:
             like_statement += " OR name LIKE ? OR docstring like ?"
+    like_statement += " )"
+
+    if xml_list is not None and len(xml_list)>0:
+        if len(xml_list)==1:
+            like_statement += " AND source = ?"
+            list_of_chars.append("{}".format(xml_list[0]))
+        else:
+            like_statement += " AND ( source = ?"
+            list_of_chars.append("{}".format(xml_list[0]))
+
+            for xml_file in xml_list[1:]:
+                like_statement += " OR source = ?"
+                list_of_chars.append("{}".format(xml_file))
+            like_statement += " )"
 
     cursor = _global_connection_cache.connect(db_name).cursor()
 

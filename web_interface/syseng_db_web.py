@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 
 from lsst.syseng_db import syseng_db_config, get_table_names
 from lsst.syseng_db import keyword_query, get_parameter_names
+from lsst.syseng_db import get_xml_files
 
 app = Flask(__name__)
 
@@ -41,12 +42,42 @@ def list_param_names():
                            input_list=name_list)
 
 
+@app.route("/list-xml-files", methods=['POST', 'GET'])
+def list_xml_files():
+    name_list = []
+    model_version = None
+    if request.method == 'POST':
+        model_version = request.form['version']
+
+        if model_version == '':
+            message = "You must specify a model version to query." \
+                      +" Try clicking the 'List all available model verisons'" \
+                      +" button on the main page."
+            return render_template("error_template.html",
+                                   message=message)
+
+        try:
+            name_list = get_xml_files(db_name, model_version)
+        except sqlite3.OperationalError, w:
+            return render_template("error_template.html",
+                                   message=w.message)
+
+    return render_template("xml_file_search_form.html",
+                           model_version=model_version,
+                           input_list=name_list)
+
+
+
 @app.route("/search", methods=['POST', 'GET'])
 def search_params():
     result_param_list = []
     if request.method == 'POST':
         kwrd = request.form['keyword'].replace(' ','').split(',')
         vv = request.form['version']
+        xml_list = [str(ww) for ww in request.form['xml_list'].split(',')]
+
+        if len(xml_list)==1 and xml_list[0]=='':
+            xml_list = None
 
         if vv == '':
             message = "You must specify a model version to query." \
@@ -56,13 +87,27 @@ def search_params():
                                    message=message)
 
         try:
-            result_param_list = keyword_query(db_name, vv, kwrd)
+            result_param_list = keyword_query(db_name, vv, kwrd,
+                                              xml_list=xml_list)
         except sqlite3.OperationalError, w:
             return render_template("error_template.html",
                                    message=w.message)
 
     return render_template("keyword_search_form.html",
                            input_list=result_param_list)
+
+
+@app.route("/optical_system", methods=['POST', 'GET'])
+def get_optical_system():
+
+    result_param_list = []
+    xml_list = ['OSS_Detail_OpticalSystem_v1.xml', 'Telescope Requirements_v1.xml',
+                 'Camera Requirements_v1.xml']
+    if request.method == 'POST':
+        kwrd = [str(request.form['element'])]
+        result_param_list = keyword_query(db_name, 'v_0_0', kwrd, xml_list=xml_list)
+
+    return render_template("optical_system.html", input_list=result_param_list)
 
 
 @app.route("/")
