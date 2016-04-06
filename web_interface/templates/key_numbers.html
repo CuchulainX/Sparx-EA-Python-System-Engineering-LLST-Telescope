@@ -1,14 +1,9 @@
 {% extends "search_template.html" %}
 
 {% block results %}
-{% if keyword_list %}
-    <h2>Keywords: {{keyword_list}} </h2>
-{% endif %}
+<h2>LSST key numbers</h2>
 {% if version %}
     <h2>Version:  {{version}} </h2>
-{% endif %}
-{% if xml_list %}
-        <h2> xml files: {{xml_list}}</h2>
 {% endif %}
 
 {% for item in input_list %}
@@ -34,32 +29,15 @@
 {% endblock %}
 
 {% block control %}
-<p>Note: the way that this search is performed, searching for the keyword 'red'
-will return all parameters with the sequence 'red' anywhere in their names or
-docstrings (i.e. 'desired' will also be returned)</p>
-
 <p>'Version' effectively refers to a table in the SQLite database of parameters
 underlying this page.  Each table corresponds to a change-controlled version of
 the LSST model.  To see a list of available versions, click on the 'List
 available model versions' button on the main page.</p>
 
-<p>'.xml files' refers to the .xml source files from which the parameters are
-drawn.  You can specify a comma-separated list of these files, or leave it blank
-and search all of the .xml input files.  To see a list of available .xml file,
-click on the 'List all .xml files for a model version' button on the main page.</p>
-
-<form action="/search" method="POST">
-    <div>
-        <label for="keyword">Keyword (comma-separated list):</label>
-        <input type="text" id="keyword" name="keyword" />
-    </div>
+<form action="/key_numbers" method="POST">
     <div>
         <label for="version">Version:</label>
         <input type="text" id="version" name="version" />
-    </div>
-    <div>
-        <label for="xml_list">.xml files (optional):</label>
-        <input type="text" id="xml_list" name="xml_list" />
     </div>
     <div class="button">
         <button type="submit">Search</button>

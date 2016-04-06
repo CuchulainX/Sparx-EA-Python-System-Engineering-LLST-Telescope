@@ -1,3 +1,6 @@
+{% extends "title.html" %}
+
+{% block actual_page %}
 <form action="/versions" method="GET">
     <div>
         <button type="submit">List available model versions</button>
@@ -28,3 +31,11 @@
         <button type="submit">Browse optical system</button>
     </div>
 </form>
+
+<form action="/key_numbers" method="GET">
+    <div>
+        <button type="submit">LSST key numbers</button>
+    </div>
+</form>
+
+{% endblock %}

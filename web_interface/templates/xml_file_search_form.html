@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "search_template.html" %}
 
-{% block body %}
+{% block results %}
 {% if input_list %}
-    <h1>.xml files underlying model version {{ model_version }}</h1>
+    <h2>.xml files underlying model version {{ model_version }}</h2>
 {% endif %}
 
 <ul>
@@ -10,8 +10,9 @@
         <li> {{ item }} </li>
     {% endfor %}
 </ul>
+{% endblock %}
 
-<p></p>
+{% block control %}
 <h2>List all of the .xml files on which a specified model version is based</h2>
 
 <p>To see a list of available model versions, clikc the 'List available model
@@ -24,6 +25,6 @@ versions' button on the main page.</p>
     </div>
     <div class="button">
         <button type="submit">List .xml files</button>
-    <div>
+    </div>
 </form>
 {% endblock %}
