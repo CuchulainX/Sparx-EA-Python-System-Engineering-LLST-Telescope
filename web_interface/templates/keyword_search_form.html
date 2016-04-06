@@ -1,6 +1,6 @@
-{% extends "search_template.html" %}
+{% extends "table_template.html" %}
 
-{% block results %}
+{% block result_title %}
 {% if keyword_list %}
     <h2>Keywords: {{keyword_list}} </h2>
 {% endif %}
@@ -10,27 +10,6 @@
 {% if xml_list %}
         <h2> xml files: {{xml_list}}</h2>
 {% endif %}
-
-{% for item in input_list %}
-    <h2> {{ item.name }} </h2>
-    {% if item.doc %}
-        {{ item.doc }}
-    {% endif %}
-    <ul>
-    {% if item.values['defaultValue'] %}
-        <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-    {% endif %}
-    {% if item.values['upperValue'] %}
-        <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-    {% endif %}
-    {% if item.values['lowerValue'] %}
-        <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-    {% endif %}
-    </ul>
-    {% if item.source %}
-        <p>Source: {{ item.source}}
-    {% endif %}
-{% endfor%}
 {% endblock %}
 
 {% block control %}
