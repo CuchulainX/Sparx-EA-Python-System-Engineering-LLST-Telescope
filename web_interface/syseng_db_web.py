@@ -74,7 +74,14 @@ def generate_key_numbers():
     param_list = []
 
     if request.method == 'POST':
-        version = request.form['version']
+        version = str(request.form['version'])
+
+        if version == '':
+            message = "You must specify a model version to query." \
+                      +" Try clicking the 'List all available model versions'" \
+                      +" button on the main page."
+            return render_template("error_template.html",
+                                   message=message)
 
         param_name_map = OrderedDict()
         param_name_map['etendueRec'] = 'Science_Based_System_Requirements_v1.xml'
@@ -109,8 +116,13 @@ def generate_key_numbers():
         param_name_map['Nv1Sum'] = 'Science_Based_System_Requirements_v1.xml'
 
         for name in param_name_map:
-            results = keyword_query(db_name, version, [name],
-                                    xml_list=[param_name_map[name]])
+            try:
+                results = keyword_query(db_name, version, [name],
+                                        xml_list=[param_name_map[name]])
+
+            except sqlite3.OperationalError, w:
+                return render_template("error_template.html",
+                                       message=w.message)
 
             for pp in results:
                 if pp.name==name:
