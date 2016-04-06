@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends "search_template.html" %}
 
-{% block body %}
+{% block results %}
 {% if input_list %}
     <h1>Available parameters in model version {{ model_version }}</h1>
 {% endif %}
@@ -10,8 +10,10 @@
         <li> {{ item }} </li>
     {% endfor %}
 </ul>
+{% endblock %}
 
-<p></p>
+
+{% block control %}
 <h2>List all of the parameters in a specified model version</h2>
 
 <p>To see a list of available model versions, clikc the 'List available model
@@ -24,6 +26,6 @@ versions' button on the main page.</p>
     </div>
     <div class="button">
         <button type="submit">List parameter names</button>
-    <div>
+    </div>
 </form>
 {% endblock %}
