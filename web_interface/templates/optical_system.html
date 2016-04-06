@@ -1,4 +1,4 @@
-{% extends "search_template.html" %}
+{% extends "table_template.html" %}
 
 {% block control %}
 
@@ -59,31 +59,5 @@ mirrors, and filters which are stored in the .xml files
     </div>
 
 </form>
-
-{% endblock %}
-
-{% block results %}
-
-<h2>Parameters characterizing {{ title }} </h2>
-{% for item in input_list %}
-    <h2> {{ item.name }} </h2>
-    {% if item.doc %}
-        {{ item.doc }}
-    {% endif %}
-    <ul>
-    {% if item.values['defaultValue'] %}
-        <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-    {% endif %}
-    {% if item.values['upperValue'] %}
-        <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-    {% endif %}
-    {% if item.values['lowerValue'] %}
-        <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
-    {% endif %}
-    </ul>
-    {% if item.source %}
-        <p>Source: {{ item.source}}
-    {% endif %}
-{% endfor%}
 
 {% endblock %}
