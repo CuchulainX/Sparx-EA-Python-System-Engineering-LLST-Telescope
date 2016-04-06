@@ -1,0 +1,46 @@
+{% extends "search_template.html" %}
+
+{% block results %}
+<h2>LSST key numbers</h2>
+{% if version %}
+    <h2>Version:  {{version}} </h2>
+{% endif %}
+
+{% for item in input_list %}
+    <h2> {{ item.name }} </h2>
+    {% if item.doc %}
+        {{ item.doc }}
+    {% endif %}
+    <ul>
+    {% if item.values['defaultValue'] %}
+        <li>defaultValue: {{ item.values['defaultValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    {% if item.values['upperValue'] %}
+        <li>upperValue: {{ item.values['upperValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    {% if item.values['lowerValue'] %}
+        <li>lowerValue: {{ item.values['lowerValue'] }} {% if item.units %} {{item.units}} {% endif %}</li>
+    {% endif %}
+    </ul>
+    {% if item.source %}
+        <p>Source: {{ item.source}}
+    {% endif %}
+{% endfor%}
+{% endblock %}
+
+{% block control %}
+<p>'Version' effectively refers to a table in the SQLite database of parameters
+underlying this page.  Each table corresponds to a change-controlled version of
+the LSST model.  To see a list of available versions, click on the 'List
+available model versions' button on the main page.</p>
+
+<form action="/key_numbers" method="POST">
+    <div>
+        <label for="version">Version:</label>
+        <input type="text" id="version" name="version" />
+    </div>
+    <div class="button">
+        <button type="submit">Search</button>
+    </div>
+</form>
+{% endblock %}

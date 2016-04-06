@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from collections import OrderedDict
 from flask import Flask, render_template, request
 
 from lsst.syseng_db import syseng_db_config, get_table_names
@@ -65,6 +66,59 @@ def list_xml_files():
     return render_template("xml_file_search_form.html",
                            model_version=model_version,
                            input_list=name_list)
+
+
+@app.route("/key_numbers", methods=['POST', 'GET'])
+def generate_key_numbers():
+    version = None
+    param_list = []
+
+    if request.method == 'POST':
+        version = request.form['version']
+
+        param_name_map = OrderedDict()
+        param_name_map['etendueRec'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['FieldOfView'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['m1OuterCa'] = 'Telescope Requirements_v1.xml'
+        param_name_map['effAperture'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['minPixelSize'] = 'Science_Requirements_v1.xml'
+        param_name_map['pixelSize'] = 'OSS_Detail_OpticalSystem_v1.xml'
+        param_name_map['visitExpTime'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['nVisitExp'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['slewSettle_time'] = 'Telescope Requirements_v1.xml'
+        param_name_map['nCalibExpDay'] = 'OSS_Detail_ScienceBulkData_v1.xml'
+        param_name_map['PixelPitch'] = 'Camera Requirements_v1.xml'
+        param_name_map['camDynamicRange'] = 'Camera Requirements_v1.xml'
+        param_name_map['DRT1'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['drProcessingPeriod'] = 'Data Management Requirements_v1.xml'
+        param_name_map['uNomRed_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['uNomBlue_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['gNomRed_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['gNomBlue_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['rNomRed_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['rNomBlue_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['iNomRed_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['iNomBlue_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['zNomRed_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['zNomBlue_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['yNomRed_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['yNomBlue_50'] = 'Camera Requirements_v1.xml'
+        param_name_map['nAlertNightAvg'] = 'OSS_Issues.xml'
+        param_name_map['OTT1'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['Asky'] = 'Science_Based_System_Requirements_v1.xml'
+        param_name_map['Nv1Sum'] = 'Science_Based_System_Requirements_v1.xml'
+
+        for name in param_name_map:
+            results = keyword_query(db_name, version, [name],
+                                    xml_list=[param_name_map[name]])
+
+            for pp in results:
+                if pp.name==name:
+                    param_list.append(pp)
+
+    return render_template("key_numbers.html",
+                           version=version,
+                           input_list=param_list)
 
 
 
