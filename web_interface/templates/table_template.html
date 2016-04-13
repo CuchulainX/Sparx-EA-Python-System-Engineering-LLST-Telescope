@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+    {% block control %}
+    {% endblock %}
+
+    {% block result_title %}
+    {% endblock %}
+
+    <style>
+    table, th, td {
+        padding: 7px;
+        width: 50px;
+    }
+    </style>
+
+    <table style="width:100%">
+        <tr>
+        <th>Parameter name</th>
+        <th>Units</th>
+        <th>Default value</th>
+        <th>Upper value</th>
+        <th>Lower value</th>
+        <th>Documentation</th>
+        <th>Source</th>
+        </tr>
+        {% for item in input_list %}
+            <tr>
+            <td> {{ item.name }} </td>
+
+            {% if item.units %}
+                <td> {{ item.units }} </td>
+            {% else %}
+                <td></td>
+            {% endif %}
+
+            {% if item.values['defaultValue'] %}
+                <td> {{ item.values['defaultValue'] }} </td>
+            {% else %}
+                <td>None</td>
+            {% endif %}
+
+            {% if item.values['upperValue'] %}
+                <td> {{ item.values['upperValue'] }} </td>
+            {% else %}
+                <td>None</td>
+            {% endif %}
+
+            {% if item.values['lowerValue'] %}
+                <td> {{ item.values['lowerValue'] }} </td>
+            {% else %}
+                <td>None</td>
+            {% endif %}
+
+            {% if item.doc %}
+                <td> {{ item.doc }} </td>
+            {% else %}
+                <td>None</td>
+            {% endif %}
+
+            {% if item.source %}
+                <td> {{ item.source }} </td>
+            {% else %}
+                <td>None</td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
