@@ -32,10 +32,10 @@ click on the 'List all .xml files for a model version' button on the main page.<
         <label for="keyword">Keyword (comma-separated list):</label>
         <input type="text" id="keyword" name="keyword" />
     </div>
-    <div>
-        <label for="version">Version:</label>
-        <input type="text" id="version" name="version" />
-    </div>
+    Model version:
+    {% for model_version in available_versions %}
+        <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+    {% endfor %}
     <div>
         <label for="xml_list">.xml files (optional):</label>
         <input type="text" id="xml_list" name="xml_list" />

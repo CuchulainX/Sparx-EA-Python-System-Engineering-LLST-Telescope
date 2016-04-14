@@ -19,11 +19,12 @@
 <p>To see a list of available model versions, clikc the 'List available model
 versions' button on the main page.</p>
 
+<b>Model version:</b>
 <form action="/list-names" method="POST">
-    <div>
-        <label for="version">Version:</label>
-        <input type="test" id="version" name="version" />
-    </div>
+    {% for model_version in available_versions %}
+        <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+    {% endfor %}
+    <br><br>
     <div class="button">
         <button type="submit">List parameter names</button>
     </div>

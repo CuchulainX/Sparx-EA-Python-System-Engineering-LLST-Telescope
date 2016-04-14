@@ -21,6 +21,7 @@ def display_versions():
 @app.route("/list-names", methods=['POST', 'GET'])
 def list_param_names():
     name_list = []
+    list_of_versions = get_table_names(db_name)
     model_version = None
     if request.method == 'POST':
         model_version = request.form['version']
@@ -40,12 +41,14 @@ def list_param_names():
 
     return render_template("parameter_name_search_form.html",
                            model_version=model_version,
-                           input_list=name_list)
+                           input_list=name_list,
+                           available_versions=list_of_versions)
 
 
 @app.route("/list-xml-files", methods=['POST', 'GET'])
 def list_xml_files():
     name_list = []
+    list_of_versions = get_table_names(db_name)
     model_version = None
     if request.method == 'POST':
         model_version = request.form['version']
@@ -65,14 +68,15 @@ def list_xml_files():
 
     return render_template("xml_file_search_form.html",
                            model_version=model_version,
-                           input_list=name_list)
+                           input_list=name_list,
+                           available_versions=list_of_versions)
 
 
 @app.route("/key_numbers", methods=['POST', 'GET'])
 def generate_key_numbers():
     version = None
     param_list = []
-
+    list_of_versions = get_table_names(db_name)
     if request.method == 'POST':
         version = str(request.form['version'])
 
@@ -131,13 +135,15 @@ def generate_key_numbers():
 
     return render_template("key_numbers.html",
                            version=version,
-                           input_list=param_list)
+                           input_list=param_list,
+                           available_versions=list_of_versions)
 
 
 
 @app.route("/search", methods=['POST', 'GET'])
 def search_params():
     result_param_list = []
+    list_of_versions = get_table_names(db_name)
     kwrd = None
     version = None
     xml_list = None
@@ -167,7 +173,8 @@ def search_params():
                            input_list=result_param_list,
                            keyword_list=kwrd,
                            version=version,
-                           xml_list=xml_list)
+                           xml_list=xml_list,
+                           available_versions=list_of_versions)
 
 
 @app.route("/optical_system", methods=['POST', 'GET'])

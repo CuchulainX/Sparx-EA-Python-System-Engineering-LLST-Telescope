@@ -18,11 +18,12 @@
 <p>To see a list of available model versions, click the 'List available model
 versions' button on the main page.</p>
 
+<b>Model version:</b>
 <form action="/list-xml-files" method="POST">
-    <div>
-        <label for="version">Version:</label>
-        <input type="text" id="version" name="version" />
-    </div>
+    {% for model_version in available_versions %}
+        <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+    {% endfor %}
+    <br><br>
     <div class="button">
         <button type="submit">List .xml files</button>
     </div>
