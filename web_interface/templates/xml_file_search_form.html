@@ -15,13 +15,13 @@
 {% block control %}
 <h2>List all of the .xml files on which a specified model version is based</h2>
 
-<p>To see a list of available model versions, clikc the 'List available model
+<p>To see a list of available model versions, click the 'List available model
 versions' button on the main page.</p>
 
 <form action="/list-xml-files" method="POST">
     <div>
         <label for="version">Version:</label>
-        <input type="test" id="version" name="version" />
+        <input type="text" id="version" name="version" />
     </div>
     <div class="button">
         <button type="submit">List .xml files</button>
