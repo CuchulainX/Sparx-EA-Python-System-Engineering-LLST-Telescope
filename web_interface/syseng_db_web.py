@@ -189,7 +189,7 @@ def get_optical_system():
 
 @app.route("/")
 def index():
-    return render_template("main_page.html")
+    return render_template("title.html")
 
 if __name__ == "__main__":
     app.run()

@@ -7,5 +7,29 @@
     </div>
 </div>
 
-{% block actual_page %}
+<br><br>
+
+<style>
+ul#navbar {
+    list-style-type: none;
+}
+li#navbar {
+    float: left;
+}
+a#navbar {
+    display: block;
+    background-color: #dddddd;
+    padding: 5px;
+}
+</style>
+
+<ul id="navbar">
+<li id="navbar"><a id="navbar" href="/key_numbers" method="GET">LSST key numbers</a></li>
+<li id="navbar"><a id="navbar" href="/search" method="GET">Keyword search</a></li>
+<li id="navbar"><a id="navbar" href="/optical_system" method="GET">Browse optical system</a></li>
+<li id="navbar"><a id="navbar" href="/list-names" method="GET">List parameter names</a></li>
+<li id="navbar"><a id="navbar" href="/list-xml-files" method="GET">List .xml files</a></li>
+</ul>
+<br><br>
+{% block body %}
 {% endblock %}
