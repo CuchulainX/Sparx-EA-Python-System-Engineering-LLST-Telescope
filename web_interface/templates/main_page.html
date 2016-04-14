@@ -1,12 +1,6 @@
 {% extends "title.html" %}
 
 {% block actual_page %}
-<form action="/versions" method="GET">
-    <div>
-        <button type="submit">List available model versions</button>
-    </div>
-</form>
-
 <form action="/list-names" method="GET">
     <div>
         <button type="submit">List all parameters for a model version</button>
