@@ -1,0 +1,26 @@
+{% extends "title.html" %}
+
+{% block body %}
+
+<p>This webpage provides access to the system parameters characterizing the
+LSST as stored in the Systems Engineering team's Enterprise Architect
+models.</p>
+
+<p>To see a list of importnant values characterizing LSST, click on the
+<a href="/key_numbers" method="GET">LSST key numbers</a> link above.</p>
+
+<p>To search the parameter database, clikc on the
+<a href="/search" method="GET">Keyword search</a> link.</p>
+
+<p>To browse the parameters characterizing the components of the LSST optical
+system (the mirrors, lenses, and filters), click on the
+<a href="/optical_system" method="GET">Browse optical system</a> link.</p>
+
+<p>To see a list of the names of all of the parameters stored in this database,
+click on the <a href="/list-names" method="GET">List parameter names</a>
+link.</p>
+
+<p>To see a list of all of the .xml files underlying this database, click on
+the <a href="/list-xml-files" method="GET">List .xml files</a> link.</p>
+
+{% endblock %}
