@@ -1,14 +1,18 @@
 {% extends "table_template.html" %}
 
-{% block control %}
-
+{% block documentation %}
+<div>
 <h2> Browse optical system</h2>
+</div>
 
 <p>This page will print out all of the parameter associated with the lenses,
 mirrors, and filters which are stored in the .xml files
 'Telescope Requirements_v1.xml', 'OSS_Detail_OpticalSystem_v1.xml', and
 'Camera Requirements_v1.xml'</p>
 
+{% endblock %}
+
+{% block control %}
 <form action="/optical_system" method="POST">
     <div class="button">
         <button type="submit" name="element" value="m1">M1</button>
