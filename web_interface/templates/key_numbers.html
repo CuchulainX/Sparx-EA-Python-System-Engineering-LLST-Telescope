@@ -1,5 +1,28 @@
 {% extends "table_template.html" %}
 
+{% block documentation %}
+<p>This presents a pre-selected set of key parameters for a specified version of
+the LSST system.  It is meant to recreate the
+<a href="http://lsst.org/scientists/keynumbers">LSST key numbers</a> page.
+Unfortunately, not all of the data represented on that original page can be
+found in the Enterprise Architect system.  Parameters missing from this new
+implementation are:</p>
+<div>
+    <ul>
+        <li>Final f-ratio</li>
+        <li>Visits per night</li>
+        <li>Data collected per 24 hour period</li>
+        <li>Pixel count</li>
+        <li>Readout time</li>
+        <li>Parameters characterizing data releases</li>
+        <li>Data and compute size parameters</li>
+        <li>Network bandwidth parameters</li>
+    </ul>
+</div>
+<p>Values that do exist in this new implementation appear to differ from those
+in the original key numbers site and should be validated.</p>
+{% endblock %}
+
 {% block result_title %}
 <div>
     <h2>LSST key numbers</h2>
@@ -10,11 +33,6 @@
 {% endblock %}
 
 {% block control %}
-<p>'Version' effectively refers to a table in the SQLite database of parameters
-underlying this page.  Each table corresponds to a change-controlled version of
-the LSST model.  To see a list of available versions, click on the 'List
-available model versions' button on the main page.</p>
-
 <div>
     <b>Model version:</b>
     <form action="/key_numbers" method="POST">
