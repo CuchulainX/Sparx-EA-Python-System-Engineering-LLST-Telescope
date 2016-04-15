@@ -1,15 +1,17 @@
 {% extends "table_template.html" %}
 
 {% block result_title %}
-{% if keyword_list %}
-    <h2>Keywords: {{keyword_list}} </h2>
-{% endif %}
-{% if version %}
-    <h2>Version:  {{version}} </h2>
-{% endif %}
-{% if xml_list %}
+<div>
+    {% if keyword_list %}
+        <h2>Keywords: {{keyword_list}} </h2>
+    {% endif %}
+    {% if version %}
+        <h2>Version:  {{version}} </h2>
+    {% endif %}
+    {% if xml_list %}
         <h2> xml files: {{xml_list}}</h2>
-{% endif %}
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block control %}
@@ -32,10 +34,12 @@ click on the 'List all .xml files for a model version' button on the main page.<
         <label for="keyword">Keyword (comma-separated list):</label>
         <input type="text" id="keyword" name="keyword" />
     </div>
-    Model version:
-    {% for model_version in available_versions %}
-        <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
-    {% endfor %}
+    <div>
+        Model version:
+        {% for model_version in available_versions %}
+            <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+        {% endfor %}
+    </div>
     <div>
         <label for="xml_list">.xml files (optional):</label>
         <input type="text" id="xml_list" name="xml_list" />
