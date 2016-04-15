@@ -13,12 +13,17 @@
 {% endblock %}
 
 
+{% block documentation %}
+<div>
+    <h2>List all of the parameters in a specified model version</h2>
+</div>
+
+<p>This page lists the names of all of the parameters stored in a particular
+version of the LSST system.</p>
+
+{% endblock %}
+
 {% block control %}
-<h2>List all of the parameters in a specified model version</h2>
-
-<p>To see a list of available model versions, click the 'List available model
-versions' button on the main page.</p>
-
 <b>Model version:</b>
 <form action="/list-names" method="POST">
     {% for model_version in available_versions %}
