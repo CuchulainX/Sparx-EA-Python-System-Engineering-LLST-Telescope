@@ -4,7 +4,12 @@
 
 <p>This webpage provides access to the system parameters characterizing the
 LSST as stored in the Systems Engineering team's Enterprise Architect
-models.</p>
+models.  These parameters have been exported from Enterprise Architect in the
+form of .xml files which have been scraped for data and ingested into a SQLite
+database.  Each .xml file corresponds to a discrete module in the
+LSST model.  A different set of .xml files has been exported for each
+change-controlled version of the LSST system.  When searching this database,
+you will need to specify the version of the system you wish to search.</p>
 
 <p>To see a list of importnant values characterizing LSST, click on the
 <a href="/key_numbers" method="GET">LSST key numbers</a> link above.</p>
