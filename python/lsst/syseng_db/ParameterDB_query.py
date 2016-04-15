@@ -135,6 +135,11 @@ def _get_parameters_from_db(db_name, table_name, where_statement, char_tuple):
     name (case insensitive)
     """
 
+    if where_statement.count('?') != len(char_tuple):
+        raise RuntimeError("Something is wrong\n" +
+                           "You did not pass as many strings as placeholders \n" +
+                           "In your WHERE statement in _get_paramters_from_db")
+
     if not os.path.exists(db_name):
         raise RuntimeError("Database %s does not exists" % db_name)
 
