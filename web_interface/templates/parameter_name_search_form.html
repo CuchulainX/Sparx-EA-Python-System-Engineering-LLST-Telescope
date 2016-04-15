@@ -1,16 +1,4 @@
-{% extends "search_template.html" %}
-
-{% block results %}
-{% if input_list %}
-    <h1>Available parameters in model version {{ model_version }}</h1>
-{% endif %}
-
-<ul>
-    {% for item in input_list %}
-        <li> {{ item }} </li>
-    {% endfor %}
-</ul>
-{% endblock %}
+{% extends "title.html" %}
 
 
 {% block documentation %}
@@ -20,16 +8,29 @@
 
 <p>This page lists the names of all of the parameters stored in a particular
 version of the LSST system.</p>
-
 {% endblock %}
 
-{% block control %}
+{% block body %}
+<div>
 <b>Model version:</b>
 <form action="/list-names" method="POST">
     {% for model_version in available_versions %}
-        <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+        <input type="radio" name="version" value={{ model_version }} {% if selected_version == model_version %} checked="checked" {% endif %}> {{ model_version }}
     {% endfor %}
     <br><br>
     <button type="submit">List parameter names</button>
 </form>
+</div>
+
+<div>
+{% if input_list %}
+    <h1>Available parameters in model version {{ model_version }}</h1>
+{% endif %}
+
+<ul>
+    {% for item in input_list %}
+        <li> {{ item }} </li>
+    {% endfor %}
+</ul>
+</div>
 {% endblock %}

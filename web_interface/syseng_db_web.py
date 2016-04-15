@@ -37,7 +37,8 @@ def list_param_names():
     return render_template("parameter_name_search_form.html",
                            model_version=model_version,
                            input_list=name_list,
-                           available_versions=list_of_versions)
+                           available_versions=list_of_versions,
+                           selected_version=model_version)
 
 
 @app.route("/list-xml-files", methods=['POST', 'GET'])
