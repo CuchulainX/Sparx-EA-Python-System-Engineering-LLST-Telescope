@@ -1,5 +1,21 @@
 {% extends "table_template.html" %}
 
+{% block documentation %}
+<p>This page allows you to search the parameter database for parameters with
+one or more of a set of keywords in either their names or their documentation
+strings.</p>
+
+<p><b>Note</b>: the way that this search is performed, searching for the keyword 'red'
+will return all parameters with the sequence 'red' anywhere in their names or
+docstrings (i.e. 'desired' will also be returned)</p>
+
+<p>'.xml files' refers to the .xml source files from which the parameters are
+drawn.  You can specify a comma-separated list of these files, or leave it blank
+and search all of the .xml input files.  To see a list of available .xml file,
+go to the <a href="/list-xml-files" method="GET">List xml files</a> page.</p>
+
+{% endblock %}
+
 {% block result_title %}
 <div>
     {% if keyword_list %}
@@ -15,19 +31,6 @@
 {% endblock %}
 
 {% block control %}
-<p>Note: the way that this search is performed, searching for the keyword 'red'
-will return all parameters with the sequence 'red' anywhere in their names or
-docstrings (i.e. 'desired' will also be returned)</p>
-
-<p>'Version' effectively refers to a table in the SQLite database of parameters
-underlying this page.  Each table corresponds to a change-controlled version of
-the LSST model.  To see a list of available versions, click on the 'List
-available model versions' button on the main page.</p>
-
-<p>'.xml files' refers to the .xml source files from which the parameters are
-drawn.  You can specify a comma-separated list of these files, or leave it blank
-and search all of the .xml input files.  To see a list of available .xml file,
-click on the 'List all .xml files for a model version' button on the main page.</p>
 
 <form action="/search" method="POST">
     <div>
