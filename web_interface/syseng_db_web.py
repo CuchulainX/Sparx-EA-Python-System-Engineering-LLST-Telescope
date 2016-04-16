@@ -146,7 +146,8 @@ def search_params():
     if request.method == 'POST':
         kwrd = [str(ww) for ww in request.form['keyword'].replace(' ','').split(',')]
         version = request.form['version']
-        xml_list = [str(ww) for ww in request.form['xml_list'].split(',')]
+        xml_list = [str(ww.lstrip().rstrip()) for ww in request.form['xml_list'].split(',')]
+        print xml_list
 
         if len(xml_list)==1 and xml_list[0]=='':
             xml_list = None
