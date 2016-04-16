@@ -44,15 +44,14 @@ def list_param_names():
             return render_template("keyword_search_form.html",
                                    input_list=result_param_list,
                                    keyword_list=[],
-                                   version=model_version,
+                                   model_version=model_version,
                                    xml_list=[],
                                    available_versions=list_of_versions)
 
     return render_template("parameter_name_search_form.html",
                            model_version=model_version,
                            input_list=name_list,
-                           available_versions=list_of_versions,
-                           selected_version=model_version)
+                           available_versions=list_of_versions)
 
 
 @app.route("/list-xml-files", methods=['POST', 'GET'])
@@ -84,13 +83,13 @@ def list_xml_files():
 
 @app.route("/key_numbers", methods=['POST', 'GET'])
 def generate_key_numbers():
-    version = None
+    model_version = None
     param_list = []
     list_of_versions = get_table_names(db_name)
     if request.method == 'POST':
-        version = str(request.form['version'])
+        model_version = str(request.form['version'])
 
-        if version == '':
+        if model_version == '':
             message = "You must specify a model version to query." \
                       +" Try clicking the 'List all available model versions'" \
                       +" button on the main page."
@@ -131,7 +130,7 @@ def generate_key_numbers():
 
         for name in param_name_map:
             try:
-                results = keyword_query(db_name, version, [name],
+                results = keyword_query(db_name, model_version, [name],
                                         xml_list=[param_name_map[name]])
 
             except sqlite3.OperationalError, w:
@@ -144,7 +143,7 @@ def generate_key_numbers():
                     param_list.append(pp)
 
     return render_template("key_numbers.html",
-                           version=version,
+                           model_version=model_version,
                            input_list=param_list,
                            available_versions=list_of_versions)
 
@@ -155,17 +154,17 @@ def search_params():
     result_param_list = []
     list_of_versions = get_table_names(db_name)
     kwrd = None
-    version = None
+    model_version = None
     xml_list = None
     if request.method == 'POST':
         kwrd = [str(ww) for ww in request.form['keyword'].replace(' ','').split(',')]
-        version = request.form['version']
+        model_version = request.form['version']
         xml_list = [str(ww.lstrip().rstrip()) for ww in request.form['xml_list'].split(',')]
 
         if len(xml_list)==1 and xml_list[0]=='':
             xml_list = None
 
-        if version == '':
+        if model_version == '':
             message = "You must specify a model version to query." \
                       +" Try clicking the 'List all available model versions'" \
                       +" button on the main page."
@@ -173,7 +172,7 @@ def search_params():
                                    message=message)
 
         try:
-            result_param_list = keyword_query(db_name, version, kwrd,
+            result_param_list = keyword_query(db_name, model_version, kwrd,
                                               xml_list=xml_list)
         except sqlite3.OperationalError, w:
             return render_template("error_template.html",
@@ -182,7 +181,7 @@ def search_params():
     return render_template("keyword_search_form.html",
                            input_list=result_param_list,
                            keyword_list=kwrd,
-                           version=version,
+                           model_version=model_version,
                            xml_list=xml_list,
                            available_versions=list_of_versions)
 

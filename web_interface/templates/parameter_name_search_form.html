@@ -19,9 +19,9 @@ you had searched for them by keyword</p>
 <div>
 <b>Model version:</b>
 <form action="/list-names" method="POST">
-    {% for model_version in available_versions %}
-        <input type="radio" name="version" value={{ model_version }}
-        {% if selected_version == model_version %} checked="checked" {% endif %}> {{ model_version }}
+    {% for possible_version in available_versions %}
+        <input type="radio" name="version" value={{ possible_version }}
+        {% if model_version == possible_version %} checked="checked" {% endif %}> {{ possible_version }}
     {% endfor %}
     <br><br>
     <button type="submit">Display output</button>

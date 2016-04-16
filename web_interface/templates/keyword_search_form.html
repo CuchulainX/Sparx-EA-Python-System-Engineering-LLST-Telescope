@@ -21,8 +21,8 @@ go to the <a href="/list-xml-files" method="GET">List xml files</a> page.</p>
     {% if keyword_list %}
         <h2>Keywords: {{keyword_list}} </h2>
     {% endif %}
-    {% if version %}
-        <h2>Version:  {{version}} </h2>
+    {% if model_version %}
+        <h2>Version:  {{model_version}} </h2>
     {% endif %}
     {% if xml_list %}
         <h2> xml files: {{xml_list}}</h2>
@@ -39,8 +39,9 @@ go to the <a href="/list-xml-files" method="GET">List xml files</a> page.</p>
     </div>
     <div>
         Model version:
-        {% for model_version in available_versions %}
-            <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+        {% for possible_version in available_versions %}
+            <input type="radio" name="version" value={{ possible_version }}
+            {% if model_version == possible_version %} checked="checked" {% endif %}> {{ possible_version }}
         {% endfor %}
     </div>
     <div>

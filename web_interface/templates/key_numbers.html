@@ -26,8 +26,8 @@ in the original key numbers site and should be validated.</p>
 {% block result_title %}
 <div>
     <h2>LSST key numbers</h2>
-    {% if version %}
-        <h2>Version:  {{version}} </h2>
+    {% if model_version %}
+        <h2>Version:  {{model_version}} </h2>
     {% endif %}
 </div>
 {% endblock %}
@@ -36,8 +36,9 @@ in the original key numbers site and should be validated.</p>
 <div>
     <b>Model version:</b>
     <form action="/key_numbers" method="POST">
-        {% for model_version in available_versions %}
-            <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+        {% for possible_version in available_versions %}
+            <input type="radio" name="version" value={{ possible_version }}
+            {% if model_version == possible_version %} checked="checked" {% endif %}> {{ possible_version }}
         {% endfor %}
         <br><br>
         <div class="button">

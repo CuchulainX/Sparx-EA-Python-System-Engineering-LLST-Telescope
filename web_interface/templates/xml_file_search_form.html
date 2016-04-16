@@ -25,8 +25,9 @@ version of the LSST system.</p>
 {% block control %}
 <b>Model version:</b>
 <form action="/list-xml-files" method="POST">
-    {% for model_version in available_versions %}
-        <input type="radio" name="version" value={{ model_version }}> {{ model_version }}
+    {% for possible_version in available_versions %}
+        <input type="radio" name="version" value={{ possible_version }}
+        {% if model_version == possible_version %} checked="checked" {% endif %}> {{ possible_version }}
     {% endfor %}
     <br><br>
     <button type="submit">List .xml files</button>
