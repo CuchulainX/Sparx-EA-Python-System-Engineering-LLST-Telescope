@@ -6,7 +6,7 @@ from lsst.syseng_db import db_from_param_list, keyword_query, ParameterTree
 from lsst.syseng_db import get_parameter_names
 from lsst.syseng_db import syseng_db_config
 
-class TestDBqueries(unittest.TestCase):
+class TestXMLqueries(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
