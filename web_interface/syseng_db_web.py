@@ -4,7 +4,7 @@ from collections import OrderedDict
 from flask import Flask, render_template, request
 
 from lsst.syseng_db import syseng_db_config, get_table_names
-from lsst.syseng_db import keyword_query, get_parameter_names
+from lsst.syseng_db import keyword_query, name_query, get_parameter_names
 from lsst.syseng_db import get_xml_files
 
 app = Flask(__name__)
@@ -33,6 +33,20 @@ def list_param_names():
         except sqlite3.OperationalError, w:
             return render_template("error_template.html",
                                    message=w.message)
+
+        desired_data = request.form.getlist('desired_parameters')
+        if len(desired_data)>0:
+            print 'doing name query on ',desired_data
+            result_param_list = name_query(db_name, model_version,
+                                           [str(ww) for ww in desired_data])
+
+            print 'got results'
+            return render_template("keyword_search_form.html",
+                                   input_list=result_param_list,
+                                   keyword_list=[],
+                                   version=model_version,
+                                   xml_list=[],
+                                   available_versions=list_of_versions)
 
     return render_template("parameter_name_search_form.html",
                            model_version=model_version,
