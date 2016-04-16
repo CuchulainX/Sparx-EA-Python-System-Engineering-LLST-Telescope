@@ -5,7 +5,7 @@ from ParameterTree import Parameter
 
 __all__ = ["get_table_names", "get_column_names",
            "get_parameter_names", "get_xml_files",
-           "keyword_query"]
+           "keyword_query", "name_query"]
 
 class connection_cache(object):
     """
@@ -193,3 +193,27 @@ def keyword_query(db_name, table_name, keyword_list, xml_list=None):
 
     return _get_parameters_from_db(db_name, table_name,
                                    like_statement, tuple(list_of_chars))
+
+
+def name_query(db_name, table_name, param_name_list):
+    """
+    Query the database db_name and table table_name for all Parameters whose
+    names are specified by the list param_name_list.  Returns a list of Parameter
+    objects.  Parameters are alphabetized by name (case-insensitive).
+    """
+
+    if len(param_name_list)==0:
+        return []
+
+    list_of_chars = []
+
+    where_statement = None
+    for param_name in param_name_list:
+        list_of_chars.append("{}".format(param_name))
+        if where_statement is None:
+            where_statement = " WHERE name = ?"
+        else:
+            where_statement += "OR name =?"
+
+    return _get_parameters_from_db(db_name, table_name,
+                                   where_statement, tuple(list_of_chars))
