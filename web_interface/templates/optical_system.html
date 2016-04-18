@@ -14,6 +14,13 @@ mirrors, and filters which are stored in the .xml files
 
 {% block control %}
 <form action="/optical_system" method="POST">
+    <div>
+        Model version:
+        {% for possible_version in available_versions %}
+            <input type="radio" name="version" value={{ possible_version }}
+            {% if model_version == possible_version %} checked="checked" {% endif %}> {{ possible_version }}
+        {% endfor %}
+    </div>
     <div class="button">
         <button type="submit" name="element" value="m1">M1</button>
 
@@ -47,5 +54,8 @@ mirrors, and filters which are stored in the .xml files
 {% block result_title %}
 <div>
     <h2>Parameters characterizing {{ title }} </h2>
+    {% if model_version %}
+        <h2>Model version: {{ model_version }} </h2>
+    {% endif %}
 </div>
 {% endblock %}
