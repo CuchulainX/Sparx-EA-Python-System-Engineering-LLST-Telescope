@@ -1,18 +1,13 @@
-{% extends "base.html" %}
+{% extends "title.html" %}
 
 {% block body %}
 
-    <div style="width: 100 %">
-       <div style="float: left; width: 45%">
-            {% block control %}
-            {% endblock %}
-        </div>
-        <div style="float: right; width: 45%">
-            {% block results %}
-            {% endblock %}
-        </div>
-    </div>
-    <div style="clear:both"></div>
+    <div>
+        {% block control %}
+        {% endblock %}
 
+        {% block results %}
+        {% endblock %}
+    </div>
 
 {% endblock %}

@@ -5,7 +5,7 @@ from ParameterTree import Parameter
 
 __all__ = ["get_table_names", "get_column_names",
            "get_parameter_names", "get_xml_files",
-           "keyword_query"]
+           "keyword_query", "name_query"]
 
 class connection_cache(object):
     """
@@ -127,6 +127,34 @@ def get_xml_files(db_name, table_name):
     return sorted([str(rr[0]) for rr in raw_results], key=lambda s: s.lower())
 
 
+def _get_parameters_from_db(db_name, table_name, where_statement, char_tuple):
+    """
+    Query the database db_name and table table_name according to the where
+    statement specified by the string where_statement and the tuple of
+    variables char_tuple.  Returns a lit of Parameter objects alphabetized by
+    name (case insensitive)
+    """
+
+    if where_statement.count('?') != len(char_tuple):
+        raise RuntimeError("Something is wrong\n" +
+                           "You did not pass as many strings as placeholders \n" +
+                           "In your WHERE statement in _get_paramters_from_db")
+
+    if not os.path.exists(db_name):
+        raise RuntimeError("Database %s does not exists" % db_name)
+
+    cmd = "SELECT * from %s" % table_name
+
+    cursor = _global_connection_cache.connect(db_name).cursor()
+
+    cmd+=where_statement
+
+    cursor.execute(cmd, char_tuple)
+    results = cursor.fetchall()
+    return [_convert_row_to_parameter(rr)
+            for rr in sorted(results, key=lambda rr: rr[0].lower())]
+
+
 def keyword_query(db_name, table_name, keyword_list, xml_list=None):
     """
     Query the database db_name and table table_name for all Parameters
@@ -138,10 +166,6 @@ def keyword_query(db_name, table_name, keyword_list, xml_list=None):
     xml_list.
     """
 
-    if not os.path.exists(db_name):
-        raise RuntimeError("Database %s does not exists" % db_name)
-
-    cmd = "SELECT * from %s" % table_name
     like_statement = None
     formatted_kw_list = []
     list_of_chars = []
@@ -167,11 +191,29 @@ def keyword_query(db_name, table_name, keyword_list, xml_list=None):
                 list_of_chars.append("{}".format(xml_file))
             like_statement += " )"
 
-    cursor = _global_connection_cache.connect(db_name).cursor()
+    return _get_parameters_from_db(db_name, table_name,
+                                   like_statement, tuple(list_of_chars))
 
-    cmd+=like_statement
 
-    cursor.execute(cmd, tuple(list_of_chars))
-    results = cursor.fetchall()
-    return [_convert_row_to_parameter(rr)
-            for rr in sorted(results, key=lambda rr: rr[0].lower())]
+def name_query(db_name, table_name, param_name_list):
+    """
+    Query the database db_name and table table_name for all Parameters whose
+    names are specified by the list param_name_list.  Returns a list of Parameter
+    objects.  Parameters are alphabetized by name (case-insensitive).
+    """
+
+    if len(param_name_list)==0:
+        return []
+
+    list_of_chars = []
+
+    where_statement = None
+    for param_name in param_name_list:
+        list_of_chars.append("{}".format(param_name))
+        if where_statement is None:
+            where_statement = " WHERE name = ?"
+        else:
+            where_statement += "OR name =?"
+
+    return _get_parameters_from_db(db_name, table_name,
+                                   where_statement, tuple(list_of_chars))

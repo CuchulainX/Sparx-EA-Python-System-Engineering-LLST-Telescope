@@ -12,19 +12,24 @@
 </ul>
 {% endblock %}
 
+{% block documentation %}
+<div>
+    <h2>List all of the .xml files on which a specified model version is
+    based</h2>
+</div>
+
+<p>This page lists the names of all of the .xml files underlying a specific
+version of the LSST system.</p>
+{%  endblock %}
+
 {% block control %}
-<h2>List all of the .xml files on which a specified model version is based</h2>
-
-<p>To see a list of available model versions, clikc the 'List available model
-versions' button on the main page.</p>
-
+<b>Model version:</b>
 <form action="/list-xml-files" method="POST">
-    <div>
-        <label for="version">Version:</label>
-        <input type="test" id="version" name="version" />
-    </div>
-    <div class="button">
-        <button type="submit">List .xml files</button>
-    </div>
+    {% for possible_version in available_versions %}
+        <input type="radio" name="version" value={{ possible_version }}
+        {% if model_version == possible_version %} checked="checked" {% endif %}> {{ possible_version }}
+    {% endfor %}
+    <br><br>
+    <button type="submit">List .xml files</button>
 </form>
 {% endblock %}
