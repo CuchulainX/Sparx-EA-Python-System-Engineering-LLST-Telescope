@@ -12,10 +12,10 @@ p {
 
 <div>
     <div>
-        <img src="/static/LSST_logo.png" width=500 height=188>
+        <img src="/static/LSST_logo.png" width=250 height=94>
     </div>
     <div>
-        <h1>System Engineering Parameter Database</h1>
+        <p style="font-size:20px">System Engineering Parameter Database</p>
     </div>
 </div>
 
@@ -33,19 +33,24 @@ li#navbar {
 a#navbar {
     display: block;
     background-color: #dddddd;
-    padding: 5px;
+    padding: 15px;
+    border-bottom: 1px solid #777777;
+    border-left: 1px solid #777777;
+    border-right: 1px solid #777777;
+    border-top: 1px solid #777777;
+    font-size: 20px;
 }
 </style>
 
 <ul id="navbar">
-<li id="navbar"><a id="navbar" href="/">Main page</a></li>
-<li id="navbar"><a id="navbar" href="/key_numbers" method="GET">LSST key numbers</a></li>
-<li id="navbar"><a id="navbar" href="/search" method="GET">Keyword search</a></li>
-<li id="navbar"><a id="navbar" href="/optical_system" method="GET">Browse optical system</a></li>
-<li id="navbar"><a id="navbar" href="/list-names" method="GET">List parameter names</a></li>
-<li id="navbar"><a id="navbar" href="/list-xml-files" method="GET">List .xml files</a></li>
+<li id="navbar"><a id="navbar" href="/">Main</a></li>
+<li id="navbar"><a id="navbar" href="/key_numbers" method="GET">Key numbers</a></li>
+<li id="navbar"><a id="navbar" href="/search" method="GET">Search</a></li>
+<li id="navbar"><a id="navbar" href="/optical_system" method="GET">Optical system</a></li>
+<li id="navbar"><a id="navbar" href="/list-names" method="GET">Parameter names</a></li>
+<li id="navbar"><a id="navbar" href="/list-xml-files" method="GET">.xml files</a></li>
 </ul>
-<br><br>
+<br><br><br><br>
 
 {% block documentation %}
 {% endblock %}
