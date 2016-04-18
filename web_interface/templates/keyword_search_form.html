@@ -11,7 +11,7 @@ docstrings (i.e. 'desired' will also be returned)</p>
 
 <p>'.xml files' refers to the .xml source files from which the parameters are
 drawn.  You can specify a comma-separated list of these files, or leave it blank
-and search all of the .xml input files.  To see a list of available .xml file,
+and search all of the .xml input files.  To see a list of available .xml files,
 go to the <a href="/list-xml-files" method="GET">List xml files</a> page.</p>
 
 {% endblock %}
@@ -45,7 +45,7 @@ go to the <a href="/list-xml-files" method="GET">List xml files</a> page.</p>
         {% endfor %}
     </div>
     <div>
-        <label for="xml_list">.xml files (optional):</label>
+        <label for="xml_list">.xml files (optional; comma-separated list):</label>
         <input type="text" id="xml_list" name="xml_list" />
     </div>
     <div class="button">
