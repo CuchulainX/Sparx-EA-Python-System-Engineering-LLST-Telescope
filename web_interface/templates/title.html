@@ -55,5 +55,9 @@ a#navbar {
 {% block documentation %}
 {% endblock %}
 
+{% if error_message %}
+<h2>Error: {{ error_message }}</h2>
+{% endif %}
+
 {% block body %}
 {% endblock %}
